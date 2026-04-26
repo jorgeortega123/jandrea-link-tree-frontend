@@ -1,4 +1,4 @@
-import { FileText, Link, ChevronRight } from 'lucide-react';
+import { Link, ChevronRight } from 'lucide-react';
 import type { PublicEntry } from '../../types';
 
 interface EntryCardProps {
@@ -11,7 +11,7 @@ export default function EntryCard({ entry }: EntryCardProps) {
       ? `/api/catalogs/${entry.r2_key}`
       : entry.url || '#';
 
-  const isExternal = entry.type === 'link';
+  const isExternal = true;
 
   return (
     <a
@@ -21,13 +21,15 @@ export default function EntryCard({ entry }: EntryCardProps) {
       className="group flex items-center gap-4 w-full rounded-xl border border-slate-200 bg-white px-5 py-4 transition-all hover:border-slate-300 hover:shadow-md"
     >
       {/* Icono */}
-      <div className="shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
-        {entry.type === 'catalog' ? (
-          <FileText size={18} className="text-slate-500" strokeWidth={1.7} />
-        ) : (
+      {entry.type === 'catalog' ? (
+        <div className="shrink-0 w-10 h-10 rounded-lg bg-red-500 flex items-center justify-center">
+          <span className="text-white font-bold text-[12px] tracking-tight">PDF</span>
+        </div>
+      ) : (
+        <div className="shrink-0 w-10 h-10 rounded-lg bg-slate-100 flex items-center justify-center">
           <Link size={18} className="text-slate-500" strokeWidth={1.7} />
-        )}
-      </div>
+        </div>
+      )}
 
       {/* Texto */}
       <div className="flex-1 min-w-0">
