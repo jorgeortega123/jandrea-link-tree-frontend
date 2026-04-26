@@ -10,6 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': 'https://jandrea-catalog-api.llampukaq.workers.dev',
+      '/catalogo': 'https://jandrea-catalog-api.llampukaq.workers.dev/api/catalogs',
     },
   },
 });
