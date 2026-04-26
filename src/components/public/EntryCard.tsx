@@ -8,7 +8,7 @@ interface EntryCardProps {
 export default function EntryCard({ entry }: EntryCardProps) {
   const href =
     entry.type === 'catalog' && entry.r2_key
-      ? `/api/catalogs/${entry.r2_key}`
+      ? `/catalogo/${entry.r2_key}`
       : entry.url || '#';
 
   const isExternal = true;

@@ -7,4 +7,9 @@ export default defineConfig({
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify('https://jandrea-catalog-api.llampukaq.workers.dev'),
   },
+  server: {
+    proxy: {
+      '/api': 'https://jandrea-catalog-api.llampukaq.workers.dev',
+    },
+  },
 });
