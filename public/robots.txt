@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://jandrea-catalog.pages.dev/sitemap.xml
+Sitemap: https://jandrea.art/sitemap.xml

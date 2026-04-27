@@ -6,17 +6,24 @@ import Footer from '../components/public/Footer';
 export default function PublicPage() {
   const structuredData = {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
+    '@type': 'LocalBusiness',
     name: 'Jandrea',
-    description: 'Catálogos y enlaces de Jandrea',
-    url: window.location.origin,
+    description: 'Corte láser, impresión 3D, artículos personalizados y diseño a medida.',
+    url: 'https://jandrea.art',
+    logo: 'https://api.jandrea.art/images/image/9235cdb8-2f63-4166-a055-e841475c5406',
+    address: { '@type': 'PostalAddress', addressCountry: 'EC' },
+    sameAs: [
+      'https://instagram.com/jandrea',
+      'https://facebook.com/jandrea',
+    ],
   };
 
   return (
     <>
       <Helmet>
-        <title>Jandrea - Catálogos y Enlaces</title>
-        <meta name="description" content="Explora los catálogos y enlaces de Jandrea. Encuentra nuestras últimas colecciones y formas de contacto." />
+        <title>Jandrea — Corte láser, Impresión 3D y Artículos personalizados</title>
+        <meta name="description" content="Explora los catálogos de Jandrea. Corte láser, impresión 3D, artículos personalizados y diseño a medida." />
+        <link rel="canonical" href="https://jandrea.art/" />
       </Helmet>
       <script type="application/ld+json">{JSON.stringify(structuredData)}</script>
 
