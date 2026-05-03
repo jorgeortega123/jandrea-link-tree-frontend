@@ -17,16 +17,21 @@ const restrictToVerticalAxis: Modifier = ({ transform }) => ({
   ...transform,
   x: 0,
 });
-import type { AdminEntry } from '../../types';
 import { useReorderEntries } from '../../hooks/useEntries';
 
-interface ReorderListProps {
-  entries: AdminEntry[];
-  children: ReactNode;
+interface Reorderable {
+  id: number;
+  sort_order: number;
 }
 
-export default function ReorderList({ entries, children }: ReorderListProps) {
-  const reorderMutation = useReorderEntries();
+interface ReorderListProps<T extends Reorderable> {
+  entries: T[];
+  children: ReactNode;
+  onReorder?: (orders: { id: number; sort_order: number }[]) => void;
+}
+
+export default function ReorderList<T extends Reorderable>({ entries, children, onReorder }: ReorderListProps<T>) {
+  const reorderEntriesMutation = useReorderEntries();
 
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -52,7 +57,11 @@ export default function ReorderList({ entries, children }: ReorderListProps) {
       sort_order: index,
     }));
 
-    reorderMutation.mutate(orders);
+    if (onReorder) {
+      onReorder(orders);
+    } else {
+      reorderEntriesMutation.mutate(orders);
+    }
   };
 
   return (

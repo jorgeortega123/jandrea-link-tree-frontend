@@ -16,3 +16,16 @@ export interface AdminEntry extends PublicEntry {
   created_at: string;
   updated_at: string;
 }
+
+export interface SocialLink {
+  id: number;
+  label: string;
+  icon: string;
+  url: string;
+  sort_order: number;
+}
+
+export interface AdminSocialLink extends SocialLink {
+  created_at: string;
+  updated_at: string;
+}

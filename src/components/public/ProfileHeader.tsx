@@ -1,22 +1,53 @@
-import { IconBrandInstagram, IconBrandFacebook, IconBrandWhatsapp } from '@tabler/icons-react';
+import {
+  IconBrandInstagram,
+  IconBrandFacebook,
+  IconBrandWhatsapp,
+  IconBrandTiktok,
+  IconBrandYoutube,
+  IconBrandX,
+  IconBrandPinterest,
+  IconBrandLinkedin,
+  IconBrandTelegram,
+  IconBrandSpotify,
+  IconBrandGithub,
+  IconBrandTwitter,
+  IconLink,
+  type TablerIconsProps,
+} from '@tabler/icons-react';
+import type { SocialLink } from '../../types';
+import { usePublicSocialLinks } from '../../hooks/useSocialLinks';
 
-const socialLinks = [
-  { icon: IconBrandInstagram, href: 'https://instagram.com/jandrea', label: 'Instagram' },
-  { icon: IconBrandFacebook,  href: 'https://facebook.com/jandrea',  label: 'Facebook' },
-  { icon: IconBrandWhatsapp,  href: 'https://wa.me/593000000000',    label: 'WhatsApp' },
-];
+const iconMap: Record<string, React.FC<TablerIconsProps>> = {
+  IconBrandInstagram,
+  IconBrandFacebook,
+  IconBrandWhatsapp,
+  IconBrandTiktok,
+  IconBrandYoutube,
+  IconBrandX,
+  IconBrandTwitter,
+  IconBrandPinterest,
+  IconBrandLinkedin,
+  IconBrandTelegram,
+  IconBrandSpotify,
+  IconBrandGithub,
+};
 
 const roles = ['Corte láser', 'Impresión 3D', 'Artículos personalizados', 'Diseño a medida'];
 
+function SocialIcon({ name, ...props }: { name: string } & TablerIconsProps) {
+  const Icon = iconMap[name] || IconLink;
+  return <Icon {...props} />;
+}
+
 export default function ProfileHeader() {
+  const { data: socialLinks, isLoading } = usePublicSocialLinks();
+
   return (
     <header className="flex flex-col items-center pt-6 pb-8 px-4">
-      {/* Nombre */}
       <h1 className="text-3xl font-bold tracking-widest  text-slate-800">
         Jandrea
       </h1>
 
-      {/* Roles */}
       <p className="mt-2 text-sm text-center text-slate-400 tracking-wide">
         {roles.map((r, i) => (
           <span key={r}>
@@ -26,26 +57,28 @@ export default function ProfileHeader() {
         ))}
       </p>
 
-      {/* Iconos sociales */}
-      <div className="flex gap-4 mt-6">
-        {socialLinks.map(({ icon: Icon, href, label }) => (
-          <a
-            key={label}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={label}
-            className="w-11 h-11 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 shadow-sm transition-all hover:text-slate-800 hover:border-slate-400 hover:scale-110"
-          >
-            <Icon size={20} strokeWidth={1.5} />
-          </a>
-        ))}
-      </div>
-
-      {/* Badge inferior */}
-      {/* <div className="mt-6 px-5 py-1.5 rounded-full text-xs tracking-widest text-slate-400 uppercase border border-slate-200 bg-white/70">
-        Catálogos &amp; Colecciones
-      </div> */}
+      {isLoading ? (
+        <div className="flex gap-4 mt-6">
+          {[1, 2, 3].map((i) => (
+            <div key={i} className="w-11 h-11 rounded-full bg-slate-100 animate-pulse" />
+          ))}
+        </div>
+      ) : socialLinks && socialLinks.length > 0 ? (
+        <div className="flex gap-4 mt-6">
+          {socialLinks.map((link: SocialLink) => (
+            <a
+              key={link.id}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.label}
+              className="w-11 h-11 rounded-full border border-slate-200 bg-white flex items-center justify-center text-slate-500 shadow-sm transition-all hover:text-slate-800 hover:border-slate-400 hover:scale-110"
+            >
+              <SocialIcon name={link.icon} size={20} strokeWidth={1.5} />
+            </a>
+          ))}
+        </div>
+      ) : null}
     </header>
   );
 }
