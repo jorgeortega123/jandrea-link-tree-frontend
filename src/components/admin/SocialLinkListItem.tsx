@@ -17,10 +17,11 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
   IconLink,
-  type TablerIconsProps,
 } from '@tabler/icons-react';
 
-const iconMap: Record<string, React.FC<TablerIconsProps>> = {
+type IconComponent = React.ComponentType<{ size?: number | string; strokeWidth?: number }>;
+
+const iconMap: Record<string, IconComponent> = {
   IconBrandInstagram,
   IconBrandFacebook,
   IconBrandWhatsapp,

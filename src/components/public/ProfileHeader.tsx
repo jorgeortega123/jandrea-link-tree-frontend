@@ -12,12 +12,13 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
   IconLink,
-  type TablerIconsProps,
 } from '@tabler/icons-react';
 import type { SocialLink } from '../../types';
 import { usePublicSocialLinks } from '../../hooks/useSocialLinks';
 
-const iconMap: Record<string, React.FC<TablerIconsProps>> = {
+type IconComponent = React.ComponentType<{ size?: number | string; strokeWidth?: number }>;
+
+const iconMap: Record<string, IconComponent> = {
   IconBrandInstagram,
   IconBrandFacebook,
   IconBrandWhatsapp,
@@ -34,7 +35,7 @@ const iconMap: Record<string, React.FC<TablerIconsProps>> = {
 
 const roles = ['Corte láser', 'Impresión 3D', 'Artículos personalizados', 'Diseño a medida'];
 
-function SocialIcon({ name, ...props }: { name: string } & TablerIconsProps) {
+function SocialIcon({ name, ...props }: { name: string; size?: number | string; strokeWidth?: number }) {
   const Icon = iconMap[name] || IconLink;
   return <Icon {...props} />;
 }

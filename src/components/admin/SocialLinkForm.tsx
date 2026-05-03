@@ -16,7 +16,6 @@ import {
   IconBrandGithub,
   IconBrandTwitter,
   IconLink,
-  type TablerIconsProps,
 } from '@tabler/icons-react';
 
 const iconOptions = [
